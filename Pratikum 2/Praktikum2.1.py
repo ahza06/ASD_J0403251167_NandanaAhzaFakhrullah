@@ -15,8 +15,6 @@ with open("data_mahasiswa.txt", "r", encoding="utf-8") as file:
             "nilai": int(nilai)
         }
 
-print (data_dict)
-
 def baca_data_mahasiswa(nama_file):
     data_dict = {}
     with open(nama_file, "r", encoding="utf-8") as file:
@@ -30,7 +28,6 @@ def baca_data_mahasiswa(nama_file):
     return data_dict
 
 buka_data = baca_data_mahasiswa(nama_file)
-print("jumlah data terbaca", len(buka_data))
 
 #==================================================
 #Praktikum 2 : Konsep ADT dan File Handling
@@ -90,7 +87,7 @@ def update_nilai(data_dict):
         print("NIM tidak ditemuka, update dibatalkan.")
         return
     try:
-        nilai_baru = int(input("Masukkan nilai baru(0-100): ")).strip()
+        nilai_baru = int(input("Masukkan nilai baru(0-100): ").strip())
     except ValueError:
         print("Nilai tidak valid, update dibatalkan.")
         return
@@ -125,6 +122,48 @@ def simpan_data(nama_file, data_dict):
 #Latihan Dasar 6: Membuat menu interaktif
 #==================================================
 
+def tambah_data(data_dict):
+    NIM = input("Masukan NIM:")
+    if NIM in data_dict:
+        print("Data sudah ada, proses dibatalkan")
+    else:
+        NAMA = input("Masukan Nama Mahasiswa:" )
+        NILAI = int(input("Masukan Nilai Mahasiswa:"))
+        data_dict[NIM] = {
+            "nama": NAMA,
+            "nilai": NILAI
+        }
+        with open("data_mahasiswa.txt", "a") as file :
+            for nim in data_dict:
+                nama = data_dict[nim]["nama"]
+                nilai = data_dict[nim]["nilai"]
+                file.write(f"{nim},{nama},{nilai}\n")
+
+    data_dict.update({NIM: {"nama": NAMA, "nilai": NILAI}})
+    print("Data Berhasil Ditambahkan.")
+
+
+def hapus_data(data_dict):
+    nim_update = input("Masukkan NIM yang akan dihapus nilainya: ").strip()
+    if nim_update not in data_dict:
+        print("NIM tidak ditemuka, update dibatalkan.")
+        return
+    try:
+        print("Data tidak ditemukan, hapus dibatalkan")
+    except ValueError:
+        print("Nilai tidak valid, update dibatalkan.")
+        return
+    data_dict.pop(nim_update)
+    print("Data berhasil dihapus")
+    tampilkan_data(data_dict)
+
+    
+
+#==================================================
+#Praktikum 2 : Konsep ADT dan File Handling
+#Latihan Dasar 6: Membuat menu interaktif
+#==================================================
+
 def main(): 
 
     #Menjalankan fungsi 1 load data
@@ -136,9 +175,10 @@ while True:
     print("2. Cari data berdasarkan NIM")
     print("3. Update nilai mahasiswa")
     print("4. Simpan data ke file")
+    print("5. hapus data mahasiswa")
     print("0. Keluar")
 
-    pilihan = input("Pilih menu (0-4): ").strip()
+    pilihan = input("Pilih menu (0-5): ").strip()
 
     if pilihan == "1":
         tampilkan_data(buka_data)
@@ -149,6 +189,8 @@ while True:
     elif pilihan == "4":
         simpan_data(nama_file, buka_data)
         print("Data berhasil disimpan ke file.")
+    elif pilihan == "5":
+        hapus_data(buka_data)
     elif pilihan == "0":
         print("Keluar dari program.")
         break

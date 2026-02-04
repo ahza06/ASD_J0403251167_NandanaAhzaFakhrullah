@@ -1,0 +1,13 @@
+BRG01,Roti,10
+BRG03,Teh Botol,35
+BRG04,Nutri Sari,4
+BRG05,Kerupuk,10
+BRG06,Kacamata,3
+BRG07,Laptop,5
+BRG08,Gelas,20
+BRG09,Meja,70
+BRG10,Galon,5
+BRG11,hp,10
+BRG12,gelang,11
+BRG20,Pelatuk,20
+BRG21,Jam Tangan,4
