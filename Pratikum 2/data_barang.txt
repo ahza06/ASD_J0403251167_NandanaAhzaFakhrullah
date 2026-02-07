@@ -11,3 +11,4 @@ BRG11,hp,10
 BRG12,gelang,11
 BRG20,Pelatuk,20
 BRG21,Jam Tangan,4
+0,abeng,10

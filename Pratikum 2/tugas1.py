@@ -19,7 +19,7 @@ def baca_data(nama_file):
         for baris in file:
             baris = baris.strip()
             kode, barang, stok = baris.split(",")
-            data_dict[kode] = {
+            data_dict[kode] = { 
                 "barang": barang,
                 "stok": int(stok)
             }
@@ -45,27 +45,51 @@ def tampilkan_data(data_dict):
         print(f"{kode:10} | {nama:<12} | {stok:>5}")
 
 
-#PENAMBAHAN LIST BARANG 
+#PENAMBAHAN/PENGURANGAN LIST BARANG 
 def tambah_barang(data_dict):
-    KODE = input("Masukan Kode Barang:")
-    if KODE in data_dict:
-        print("Data sudah ada, proses dibatalkan")
-    else:
-        NAMA = input("Masukan Nama Barang:" ).strip()
-        STOK = int(input("Masukan Stok Barang:").strip())
-        data_dict[KODE] = {
-            "barang": NAMA,
-            "stok": STOK
-        }
+    print ("\n=== Tambah Barang Baru ===")
+    print("1. tambah barang")
+    print("2. hapus barang")
+    print("0. kembali ke homepage")
 
-        with open(nama_file, "w", encoding="utf-8") as file:
-            for kode in data_dict:
-                barang = data_dict[kode]["barang"]
-                stok = data_dict[kode]["stok"]
-                file.write(f"{kode},{barang},{stok}\n")
-        print("Data Berhasil Ditambahkan.")
+    pilihan = input("Pilih menu (0-2): ").strip() #Mengambil input dari user
+    if pilihan =="1": 
+        KODE = input("Masukan Kode Barang:")
+        if KODE in data_dict:
+            print("Data sudah ada, proses dibatalkan")
+        else:
+            NAMA = input("Masukan Nama Barang:" ).strip()
+            STOK = int(input("Masukan Stok Barang:").strip())
+            data_dict[KODE] = {  #Menyimpan data ke dictionary menggunakan kode sebagai key
+                "barang": NAMA,
+                "stok": STOK
+            }
+
+            with open(nama_file, "w", encoding="utf-8") as file:
+                for kode in data_dict:
+                    barang = data_dict[kode]["barang"]
+                    stok = data_dict[kode]["stok"]
+                    file.write(f"{kode},{barang},{stok}\n") #Menulis ulang seluruh data ke file data barang.txt
+            print("Data Berhasil Ditambahkan.")
+
+    if pilihan =="2":
+        kode_update = input("Masukkan kode [BRGXX] yang akan dihapus nilainya: ").strip()
+        if kode_update not in data_dict:
+                print("Barang tidak ditemukan, update dibatalkan.")
+                return
+        else:
+            del data_dict[kode_update] #Menghapus data dari dictionary berdasarkan kode yang diinputkan
+            with open("data_barang.txt", "w", encoding="utf-8") as file: #Menulis ulang seluruh data ke file data barang
+                for kode in data_dict:
+                    barang = data_dict[kode]["barang"]
+                    stok = data_dict[kode]["stok"]
+                    file.write(f"{kode},{barang},{stok}\n")
+            tampilkan_data(data_dict)
+            
+    if pilihan =="0":
+        return
+
  
-
 
 #UPDATE STOCK
 def update_stok(data_dict):
@@ -77,9 +101,9 @@ def update_stok(data_dict):
     try:
         stok_baru = int(input("Masukkan jumlah stok baru: ").strip())
     except ValueError:
-        print("Nilai tidak valid, update dibatalkan.")
+        print("Nilai tidak valid, update dibatalkan.") #Mengecek apakah input stok baru berupa angka
         return
-    if stok_baru < 0:
+    if stok_baru < 0: #Kondisional untuk memastikan stok baru tidak negatif
         print("Nilai di luar rentang, update dibatalkan.")
 
     stok_lama = data_dict[kode]["stok"]
@@ -88,42 +112,18 @@ def update_stok(data_dict):
     print(f"Update Selesai, Nilai {kode_update} berubah dari {stok_lama} menjadi {stok_baru}")
 
 
-#PENGHAPUSAN LIST DATA 
-def hapus_data(data_dict):
-    kode_update = input("Masukkan kode [BRGXX] yang akan dihapus nilainya: ").strip()
-    if kode_update not in data_dict:
-        print("Barang tidak ditemukan, update dibatalkan.")
-        return
-    try:
-        print("Barang tidak ditemukan, hapus dibatalkan")
-    except ValueError:
-        print("Stok tidak valid, update dibatalkan.")
-        return
-    data_dict.pop(kode_update)
-    with open("data_barang.txt", "a") as file :
-            for kode in data_dict:
-                barang = data_dict[kode]["barang"]
-                stok = data_dict[kode]["stok"]
-                file.write(f"{kode},{barang},{stok}\n")
-    print("Data barang berhasil dihapus")
-    tampilkan_data(data_dict)
-    
-
-def main(): 
-
-    #Menjalankan fungsi 1 load data
+def main(): #Menjalankan home menu
     buka_data = baca_data(nama_file)
 
 
 while True:
     print("\n=== HOMEPAGE DATA BARANG ===")
     print("1. Tampilkan Seluruh Barang")
-    print("2. Tambah barang")
+    print("2. Tambah + hapus barang")
     print("3. Update stok barang")
-    print("4. hapus data barang")
     print("0. Keluar")
 
-    pilihan = input("Pilih menu (0-4): ")
+    pilihan = input("Pilih menu (0-3): ")
 
     if pilihan == "1":
         tampilkan_data(buka_data)
@@ -131,8 +131,6 @@ while True:
         tambah_barang(buka_data)
     elif pilihan == "3":
         update_stok(buka_data)
-    elif pilihan == "4":
-        hapus_data(buka_data)
     elif pilihan == "0":
         print("Keluar dari program.")
         break
