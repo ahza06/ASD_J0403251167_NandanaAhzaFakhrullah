@@ -78,7 +78,7 @@ def main():
 
         if pilihan =="1":
             nim = input('Masukkan NIM Mahasiswa: '). strip()
-            nama = input('Masukan Nama Mahasiswa:'). strip()
+            nama = input('Masukan Nama Mahasiswa: '). strip()
 
             q.enqueue(nim,nama)
             print("Mahasiswa Berhasil ditambahkan ke antrian")
