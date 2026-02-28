@@ -7,9 +7,9 @@
 #==============================================
 #Studi Kasus: Generator Pin
 #==============================================
-
+#Base Case untuk permulaan kasus
 def buat_pin(panjang, hasil=""):
-    if len(hasil) == panjang:
+    if len(hasil) == panjang: #Menentukan apabila list setara dengan length
         print(hasil)
         return
     
