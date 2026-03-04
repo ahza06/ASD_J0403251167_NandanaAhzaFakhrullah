@@ -1,3 +1,14 @@
+#==============================================
+#Nama: Nandana Ahza Fakhrullah
+#NIM:J0403521167
+#Kelas: TPL B1
+#==============================================
+
+#==============================================
+#Latihan3: Tracing Insertion Sort
+#==============================================
+
+
 #Buat program dengan menggunakan algoritma insertion sort
 #Tracing dengan data = [5, 2, 4, 6, 1, 3]
 #Soal:
