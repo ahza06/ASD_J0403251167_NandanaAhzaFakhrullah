@@ -7,7 +7,7 @@
 #==============================================
 #Latiham 2: Tracing Rekursi
 #==============================================
-
+#Base case permulaan kasus
 def countdown(n):
     if n == 0:
         print("Selesai")
@@ -17,4 +17,4 @@ def countdown(n):
 
     countdown(n-1)
 
-    print("Keluar")
+    print("Keluar")  #output
