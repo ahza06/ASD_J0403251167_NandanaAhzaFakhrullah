@@ -50,4 +50,4 @@ def merge(left_half, right_half):
     return result
 
 angka = [13, 7, 28, 5, 19, 36, 4]
-print("Hasil Sorting", merge_sort(angka))
+print("Hasil Sorting", merge_sort(angka)) 
