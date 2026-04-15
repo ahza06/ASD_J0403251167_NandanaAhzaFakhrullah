@@ -27,6 +27,6 @@ def insertion_sort(data):
     return data
 
 #[Jawaban]
-#1. [2, 5, 4, 6, 1, 3]
-#2. [2, 4, 5, 6, 1, 3]
+#1. Setelah iterasi i = 1 -> [2, 5, 4, 6, 1, 3] 
+#2. Setelah iterasi i = 3 -> [2, 4, 5, 6, 1, 3]
 #3. 4 kali
