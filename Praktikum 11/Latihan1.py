@@ -11,36 +11,51 @@
 
 from collections import deque
 
-# Representasi graph menggunakan Adjacency List (Dictionary)
+# Peta jalan atau rute.
+# Bagian kiri (Key) itu lokasi saat ini.
+# Bagian kanan = tujuan yang bisa didatengin langsung dari lokasi tersebut.
 graph = {
     'Rumah': ['Sekolah', 'Toko'],
     'Sekolah': ['Perpustakaan'],
     'Toko': ['Pasar'],
-    'Perpustakaan': [],
-    'Pasar': []
+    'Perpustakaan': [], # Kosong berarti jalan buntu, gak ada rute ke tempat lain
+    'Pasar': []         # Ini juga jalan buntu
 }
 
 def bfs(graph, start):
-    # 'visited' untuk mencatat node yang sudah diproses agar tidak looping
+    # visited ini ibarat buku tamu.
+    # Fungsinya buat nyatet tempat mana aja yang udah pernah kita datengin.
+    # Ini penting banget biar ga bolak-balik.
     visited = set()
-    # 'queue' menggunakan prinsip FIFO (First-In, First-Out)
+     
+    # BFS pakai sistem FIFO (First-In, First-Out), alias siapa yang masuk antrean duluan, 
+    # dia yang dieksplorasi/diproses duluan.
     queue = deque([start])
 
+    # Catat lokasi awal (start) ke buku tamu karena kita langsung berdiri di situ
     visited.add(start)
 
+    # Selama antreannya belum kosong, program akan terus jalan nyari rute
     while queue:
-        # Mengambil elemen pertama dari antrean
+        # Panggil lokasi yang ada di antrean paling DEPAN, lalu keluarin dari antrean
         node = queue.popleft()
+        
+        # Cetak lokasi yang lagi kita kunjungin sekarang di layar
         print(node, end=" ")
 
-        # Iterasi setiap tetangga dari node saat ini
+        # Sekarang, kita cek semua jalan cabang (tetangga) dari lokasi kita saat ini
         for neighbor in graph[node]:
+            # Kalau tempat tetangga itu BELUM ADA di buku tamu (belum pernah dikunjungin)...
             if neighbor not in visited:
+                # 1. Catat ke buku tamu biar besok-besok gak didatengin lagi
                 visited.add(neighbor)
+                
+                # 2. Masukin tempat baru itu ke barisan paling BELAKANG di antrean 
+                # untuk dikunjungin pada giliran berikutnya
                 queue.append(neighbor)
 
 # Eksekusi Program
-print("BFS dari Rumah:")
+print("Urutan kunjungan BFS dari Rumah:")
 bfs(graph, 'Rumah')
 '''
 1. Node mana yang dikunjungi pertama?
