@@ -13,7 +13,7 @@ graph = {
     'A': {'B': 4, 'C': 2}, # Dari A ke B jaraknya 4, ke C jaraknya 2
     'B': {'D': 5},         # Dari B ke D jaraknya 5
     'C': {'D': 1},         # Dari C ke D jaraknya 1
-    'D': {}                # D adalah tujuan akhir, jadi gak ada jalan lagi
+    'D': {}                # D adalah tujuan akhir, jadi gak ada jalan lagig
 }
 
 # Hitung total jarak untuk masing-masing pilihan rute
